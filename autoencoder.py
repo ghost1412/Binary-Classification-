@@ -10,9 +10,9 @@ import csv
 from numpy import empty
 from statistics import mean
 '''
-		            -------------------------
-|---------------|      reading 	csv	      |-------------------------------------------------------|
-		            --------------------------
+		 -------------------------
+|---------------|      reading 	csv	   |-------------------------------------------------------|
+		 --------------------------
 '''
 reader = csv.reader(open("/home/tonystark/Downloads/gh/abc2classwoenrolid.csv", "r"), delimiter=",")
 data = list(reader)
@@ -47,9 +47,9 @@ for j in range(0, len(result_train)):                         #reshaping to 2d a
   resultraintemp = np.reshape(np.pad(result_train[j], (0, 1306), 'constant'),(128,128,1))
   x_train[j] = resultraintemp
 '''
-		             -------------------------
-|---------------|    conv autoencoder	    |------------------------------------------------------|
-		             --------------------------
+		 -------------------------
+|---------------|    conv autoencoder	  |------------------------------------------------------|
+		 --------------------------
 '''
 from keras.layers import Input, Dense, Conv2D, MaxPooling2D, UpSampling2D
 from keras.models import Model
@@ -59,9 +59,9 @@ from keras.optimizers import Adadelta, RMSprop,SGD,Adam
 from keras import backend as K
 input_img = Input(shape=(128, 128, 1)) 
 '''
-		             -------------------------
-|---------------|        encoder	        |-------------------------------------------------------|
-		             --------------------------
+		 -------------------------
+|---------------|        encoder	   |-------------------------------------------------------|
+		 --------------------------
 '''
 x = Conv2D(16, (3, 3), activation='relu', padding='same', name='conv1')(input_img)
 x = BatchNormalization()(x)
@@ -73,9 +73,9 @@ x = Conv2D(64, (3, 3), activation='relu', padding='same', name='con3')(x)
 x = BatchNormalization()(x)
 encoded = MaxPooling2D((2, 2), padding='same', name='max3')(x)
 '''
-	            	 -------------------------
-|---------------|        decoder	        |--------------------------------------------------------|
-		             -------------------------
+	         -------------------------
+|---------------|        decoder	  |--------------------------------------------------------|
+		 -------------------------
 '''
 x = Conv2D(64, (3, 3), activation='relu', padding='same', name='conv4')(encoded)
 x = BatchNormalization()(x)
@@ -91,9 +91,9 @@ decoded = Conv2D(1, (3, 3), activation='sigmoid', padding='same', name='conv7')(
 autoencoder = Model(input_img, decoded)
 autoencoder.compile(Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.0, amsgrad=False), loss='binary_crossentropy', metrics=['accuracy'])
 '''
-		             -------------------------
-|---------------|    training model	      |-------------------------------------------------------|
-              	--------------------------
+		 -------------------------
+|---------------|    training model	  |-------------------------------------------------------|
+              	 -------------------------
 '''
 from keras.callbacks import TensorBoard
 
